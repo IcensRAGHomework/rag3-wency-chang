@@ -62,7 +62,7 @@ def generate_hw03(question, store_name, new_store_name, city, store_type):
     )
 
     filtered_results = [
-        results["metadatas"][0][i]["name"]
+        results["metadatas"][0][i].get("new_store_name", results["metadatas"][0][i]["name"])
         for i, distance in enumerate(results["distances"][0])
         if distance <= 0.20 
     ]
