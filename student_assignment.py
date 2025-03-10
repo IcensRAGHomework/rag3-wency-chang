@@ -44,7 +44,8 @@ def generate_hw02(question, city, store_type, start_date, end_date):
     
 def generate_hw03(question, store_name, new_store_name, city, store_type):
     collection = get_travel_collection()
-    docs = collection.get(where={"store_name": store_name})
+    docs = collection.get(where={"name": store_name})
+
     if docs["ids"]:
         doc_id = docs["ids"][0]
         metadata = docs["metadatas"][0]
@@ -114,5 +115,4 @@ def load_data_into_chromadb(collection):
         metadatas=metadata_list
     )
     print(f"已成功加入 {len(documents)} 筆資料")
-
 
