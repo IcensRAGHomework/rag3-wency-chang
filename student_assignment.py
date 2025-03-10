@@ -58,14 +58,15 @@ def generate_hw03(question, store_name, new_store_name, city, store_type):
         "$and": [
             {"city": {"$in": city}},
             {"type": {"$in": store_type}}
-        ]
-        }
+        ]}
     )
+
     filtered_results = [
         results["metadatas"][0][i]["name"]
         for i, distance in enumerate(results["distances"][0])
         if distance <= 0.20 
     ]
+
     return filtered_results
     
 def get_travel_collection():
@@ -77,6 +78,7 @@ def get_travel_collection():
         api_version = gpt_emb_config['api_version'],
         deployment_id = gpt_emb_config['deployment_name']
     )
+
     collection = chroma_client.get_or_create_collection(
         name="TRAVEL",
         metadata={"hnsw:space": "cosine"},
@@ -113,6 +115,4 @@ def load_data_into_chromadb(collection):
     )
     print(f"已成功加入 {len(documents)} 筆資料")
 
-result = generate_hw03("我想要找南投縣的田媽媽餐廳，招牌是蕎麥麵", "耄饕客棧", "田媽媽（耄饕客棧）", ["南投縣"], ["美食"])
-print(result)
 
